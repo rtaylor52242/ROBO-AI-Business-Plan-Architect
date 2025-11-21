@@ -44,12 +44,15 @@ const HistoryDrawer: React.FC<HistoryDrawerProps> = ({ isOpen, onClose, history,
               <p className="text-xs mt-1">Generate a plan to see it here.</p>
             </div>
           ) : (
-            history.map((item) => (
+            history.map((item, index) => (
               <div 
                 key={item.id} 
-                className="bg-cardbg border border-slate-700 rounded-lg p-4 hover:border-robo-500 transition-all group relative"
+                className="bg-cardbg border border-slate-700 rounded-lg p-4 hover:border-robo-500 transition-all group relative flex gap-3 items-start"
               >
-                <div onClick={() => { onLoad(item); onClose(); }} className="cursor-pointer">
+                <div className="text-robo-500/50 font-display font-bold text-lg pt-0.5 w-6 text-center select-none">
+                    {index + 1}
+                </div>
+                <div onClick={() => { onLoad(item); onClose(); }} className="cursor-pointer flex-1">
                   <h3 className="font-bold text-white group-hover:text-robo-300 transition-colors mb-1">{item.businessName}</h3>
                   <p className="text-xs text-slate-400">
                     {new Date(item.createdAt).toLocaleDateString()} • {new Date(item.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -57,7 +60,7 @@ const HistoryDrawer: React.FC<HistoryDrawerProps> = ({ isOpen, onClose, history,
                 </div>
                 <button
                   onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
-                  className="absolute top-4 right-4 text-slate-600 hover:text-red-400 transition-colors p-1"
+                  className="text-slate-600 hover:text-red-400 transition-colors p-1"
                   title="Delete Plan"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">

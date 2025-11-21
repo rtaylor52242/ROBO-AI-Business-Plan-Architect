@@ -1,6 +1,53 @@
 import React, { useState } from 'react';
 import { BusinessInputData } from '../types';
 
+const EXAMPLES: BusinessInputData[] = [
+  {
+    businessName: "Verde Vertical Farms",
+    industry: "Agriculture / AgTech",
+    description: "A high-tech urban farming initiative utilizing hydroponic vertical towers in repurposed warehouse spaces. We grow leafy greens and herbs year-round with 95% less water than traditional farming, supplying local restaurants and grocery stores within a 10-mile radius to ensure peak freshness and minimal carbon footprint.",
+    targetMarket: "Local farm-to-table restaurants, high-end grocery retailers (e.g., Whole Foods), and eco-conscious urban consumers seeking pesticide-free, hyper-local produce.",
+    productsServices: "Premium arugula, basil, kale, and microgreens. Subscription boxes for consumers and wholesale contracts for restaurants.",
+    usp: "Hyper-local production eliminates shipping costs and spoilage, delivering harvest-day freshness that traditional agriculture cannot match.",
+    fundingRequest: "$750,000 for warehouse retrofit and hydroponic equipment",
+    teamExperience: "Founders include an agricultural scientist with a PhD in Hydroponics and a former supply chain manager for a major grocery chain.",
+    visionMission: "To revolutionize urban food security by growing fresh, sustainable produce exactly where it is consumed."
+  },
+  {
+    businessName: "SilverSurfer Tech Support",
+    industry: "Service / Education",
+    description: "A personalized, patience-first technical support and education service designed specifically for seniors. We offer in-home visits and secure remote support to help older adults master smartphones, tablets, smart home devices, and avoid online scams.",
+    targetMarket: "Adults aged 65+ living independently or in retirement communities, as well as their adult children (aged 40-60) who want peace of mind for their parents.",
+    productsServices: "One-on-one tech tutoring, smart home setup (video doorbells, voice assistants), scam prevention workshops, and a monthly 'IT Help Desk' subscription.",
+    usp: "We prioritize patience and empowerment over quick fixes, using specialized curriculum designed for non-digital natives.",
+    fundingRequest: "$50,000 for marketing and initial staffing",
+    teamExperience: "Founded by a former social worker and an IT professional who realized the gap in senior-focused tech care.",
+    visionMission: "To bridge the digital divide and ensure no senior feels left behind in a connected world."
+  },
+  {
+    businessName: "SoleCraft 3D",
+    industry: "Retail / Fashion Tech",
+    description: "A custom footwear company using 3D scanning and printing technology to create perfectly fitted sneakers. Customers scan their feet using our mobile app, customize colors and materials, and receive a pair of shoes printed with an ergonomic lattice sole adapted to their walking pattern.",
+    targetMarket: "Sneakerheads, athletes with specific biomechanical needs, and people with difficult-to-fit foot shapes (wide/narrow/flat feet).",
+    productsServices: "Custom-fit 3D printed sneakers, app-based foot scanning, and limited edition artist collaboration designs.",
+    usp: "The perfect fit, guaranteed. No sizes, just your foot's exact geometry, manufactured on-demand to eliminate inventory waste.",
+    fundingRequest: "$1.2M for R&D and 3D printer farm expansion",
+    teamExperience: "Team consists of a podiatrist, a 3D printing engineer, and a former Nike footwear designer.",
+    visionMission: "To make mass-manufacturing obsolete by putting personalization and comfort first."
+  },
+  {
+    businessName: "Zenith Digital Detox Retreats",
+    industry: "Hospitality / Wellness",
+    description: "Luxury off-grid cabins located in dead-zone nature reserves, offering structured digital detox programs. Guests surrender their devices upon arrival and engage in nature immersion, meditation, and analog workshops (woodworking, painting, cooking) to reset their dopamine levels.",
+    targetMarket: "Burned-out tech executives, creatives, and high-stress professionals seeking to disconnect and recharge.",
+    productsServices: "Weekend and week-long all-inclusive stays, guided mindfulness sessions, organic farm-to-table meals, and 'Analog Skills' workshops.",
+    usp: "We guarantee zero connectivity. Our locations are physically shielded from cellular signals, providing the only true escape from the notification economy.",
+    fundingRequest: "$500,000 for land acquisition and cabin construction",
+    teamExperience: "Founded by a former Silicon Valley CEO and a clinical psychologist specializing in tech addiction.",
+    visionMission: "To help humanity reconnect with nature and themselves by disconnecting from the cloud."
+  }
+];
+
 interface InputFormProps {
   onSubmit: (data: BusinessInputData) => void;
   isLoading: boolean;
@@ -24,6 +71,11 @@ const InputForm: React.FC<InputFormProps> = ({ onSubmit, isLoading }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleInspireMe = () => {
+    const randomExample = EXAMPLES[Math.floor(Math.random() * EXAMPLES.length)];
+    setFormData(randomExample);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
@@ -32,9 +84,22 @@ const InputForm: React.FC<InputFormProps> = ({ onSubmit, isLoading }) => {
   return (
     <div className="max-w-3xl mx-auto w-full">
       <div className="bg-cardbg border border-slate-700 rounded-xl shadow-2xl overflow-hidden">
-        <div className="p-8 border-b border-slate-700 bg-slate-800/50">
-          <h2 className="text-2xl font-display font-bold text-white mb-2">Configure Your Business</h2>
-          <p className="text-slate-400 text-sm">Provide the core details so Robo AI can construct your roadmap.</p>
+        <div className="p-8 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-display font-bold text-white mb-2">Configure Your Business</h2>
+            <p className="text-slate-400 text-sm">Provide the core details so Robo AI can construct your roadmap.</p>
+          </div>
+          <button
+            type="button"
+            onClick={handleInspireMe}
+            className="px-4 py-2 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 text-sm font-medium rounded-lg border border-indigo-500/30 transition-all flex items-center gap-2 w-fit shrink-0"
+            title="Fill with example data"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+            Inspire Me
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-8 space-y-6">

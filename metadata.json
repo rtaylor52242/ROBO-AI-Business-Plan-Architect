@@ -1,0 +1,5 @@
+{
+  "name": "Robo AI - Business Plan Generator",
+  "description": "An intelligent full-stack application that generates comprehensive, professional business plans using Google Gemini AI.",
+  "requestFramePermissions": []
+}
